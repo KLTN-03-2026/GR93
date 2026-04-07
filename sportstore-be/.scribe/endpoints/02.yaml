@@ -1,0 +1,115 @@
+name: '1. Xác thực & Tài khoản'
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/auth/email/verify/{id}/{hash}'
+    metadata:
+      custom: []
+      groupName: '1. Xác thực & Tài khoản'
+      groupDescription: ''
+      subgroup: 'Quản lý Xác thực Email'
+      subgroupDescription: ''
+      title: 'Xử lý click vào link xác thực từ email.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'ID người dùng.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      hash:
+        custom: []
+        name: hash
+        description: 'Mã hash xác thực.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 16
+      hash: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 302
+        content: |-
+          <!DOCTYPE html>
+          <html>
+              <head>
+                  <meta charset="UTF-8" />
+                  <meta http-equiv="refresh" content="0;url='http://localhost:3000/verify-email?status=expired'" />
+
+                  <title>Redirecting to http://localhost:3000/verify-email?status=expired</title>
+              </head>
+              <body>
+                  Redirecting to <a href="http://localhost:3000/verify-email?status=expired">http://localhost:3000/verify-email?status=expired</a>.
+              </body>
+          </html>
+        headers:
+          cache-control: 'no-cache, private'
+          location: 'http://localhost:3000/verify-email?status=expired'
+          content-type: 'text/html; charset=utf-8'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/auth/email/resend
+    metadata:
+      custom: []
+      groupName: '1. Xác thực & Tài khoản'
+      groupDescription: ''
+      subgroup: 'Quản lý Xác thực Email'
+      subgroupDescription: ''
+      title: 'Gửi lại email xác thực'
+      description: 'Dành cho người dùng đã đăng nhập nhưng chưa xác thực email.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
