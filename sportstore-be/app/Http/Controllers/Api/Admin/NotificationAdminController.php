@@ -90,7 +90,7 @@ class NotificationAdminController extends Controller
                         $frontendUrl = env('FRONTEND_URL', 'http://localhost:3000');
                         $hanhDongUrl = rtrim($frontendUrl, '/') . '/' . ltrim($validated['du_lieu_them']['link'], '/');
                     }
-                    
+
                     Mail::bcc($userEmails)->queue(new ThongBaoMail(
                         tieuDe: $validated['tieu_de'],
                         noiDung: $validated['noi_dung'],
@@ -109,9 +109,9 @@ class NotificationAdminController extends Controller
 
     /**
      * Danh sách lịch sử thông báo quảng bá (Gần đây)
-     * 
-     * Note: Class này hiện chỉ lưu thông báo cho từng user. 
-     * Để quản lý lịch sử broadcast chuẩn, có thể cần bảng riêng, 
+     *
+     * Note: Class này hiện chỉ lưu thông báo cho từng user.
+     * Để quản lý lịch sử broadcast chuẩn, có thể cần bảng riêng,
      * nhưng tạm thời lấy các thông báo mới nhất không phân biệt user id để admin xem lại.
      */
     public function history(): JsonResponse
@@ -122,7 +122,7 @@ class NotificationAdminController extends Controller
         $history = ThongBao::with('nguoiDung:id,ho_va_ten,email')
             ->latest()
             ->paginate(20);
-            
+
         return ApiResponse::paginate($history, 'Lịch sử thông báo');
     }
 }
