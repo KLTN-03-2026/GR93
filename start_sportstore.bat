@@ -10,7 +10,7 @@ start cmd /k "cd /d %ROOT_DIR%\sportstore-be && echo 🔥 Khoi dong Backend Lara
 start cmd /k "cd /d %ROOT_DIR%\sportstore-be && echo 🔥 Khoi dong Queue... && php artisan queue:work"
 
 :: 2. Frontend NextJS
-start cmd /k "cd /d %ROOT_DIR%\sportstore-client && echo ⚛️ Khoi dong Frontend NextJS... && npm run dev"
+start cmd /k "cd /d %ROOT_DIR%\sportstore-client && echo ⚛️ Khoi dong Frontend NextJS... && yarn run dev"
 
 :: 3. AI Service (FastAPI)
 start cmd /k "cd /d %ROOT_DIR%\sportstore-ai && echo 🤖 Khoi dong AI Service... && call venv\Scripts\activate && uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload"

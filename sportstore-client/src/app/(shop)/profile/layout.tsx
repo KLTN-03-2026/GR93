@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/auth.store';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { User, Package, MapPin, Heart, LogOut, Bell, Loader2 } from 'lucide-react';
+import { User, Package, MapPin, Heart, LogOut, Bell } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -19,7 +19,9 @@ const navItems = [
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
-    const { isAuthenticated, _hasHydrated, logout, user } = useAuthStore();
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+    const logout = useAuthStore((state) => state.logout);
+    const user = useAuthStore((state) => state.user);
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -27,24 +29,13 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     }, []);
 
     useEffect(() => {
-        if (isMounted && _hasHydrated && !isAuthenticated) {
+        if (isMounted && !isAuthenticated) {
             router.push('/login');
         }
-    }, [isMounted, _hasHydrated, isAuthenticated, router]);
+    }, [isMounted, isAuthenticated, router]);
 
-    // Show loading spinner while waiting for auth hydration
-    if (!isMounted || !_hasHydrated) {
-        return (
-            <div className="container mx-auto px-4 py-8 lg:py-12 bg-slate-50/50 min-h-[calc(100vh-80px)] flex items-center justify-center">
-                <div className="text-center">
-                    <Loader2 className="h-10 w-10 animate-spin text-primary mx-auto mb-4" />
-                    <p className="text-slate-500 text-sm">Đang tải...</p>
-                </div>
-            </div>
-        );
-    }
-
-    if (!isAuthenticated) return null;
+    // Don't render until hydration is complete to avoid flashes
+    if (!isMounted || !isAuthenticated) return null;
 
     const handleLogout = () => {
         logout();
